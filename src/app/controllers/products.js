@@ -1,5 +1,6 @@
 const service = require('../services/products');
 const validator = require('../utils/validator');
+const repository = require('../repository/products');
 
 exports.get = async (_, res) => {
   try {
@@ -43,5 +44,28 @@ exports.getById = async (req, res) => {
         error: error.message,
       });
     }
+  }
+};
+
+exports.post = async (req, res) => {
+  try {
+    const params = ['id', 'title', 'image', 'price'];
+    const invalidBody = validator.validatePresence(req.body, params);
+    if (invalidBody) {
+      res.status(400).json({
+        error: invalidBody,
+      });
+    } else {
+      const { body, params: { userId } } = req;
+      const product = await repository.create({ ...body, userId });
+      res.status(201).json({
+        message: 'Product created successfully',
+        data: product,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      error: error.message,
+    });
   }
 };

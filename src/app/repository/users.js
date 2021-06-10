@@ -1,3 +1,4 @@
+const Product = require('../models/Product');
 const User = require('../models/User');
 
 exports.create = async ({ name, email }) => {
@@ -7,6 +8,6 @@ exports.create = async ({ name, email }) => {
 };
 
 exports.find = async () => {
-  const users = await User.findAll();
+  const users = await User.findAll({ include: Product });
   return users;
 };
