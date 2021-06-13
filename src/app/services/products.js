@@ -1,12 +1,12 @@
 const api = require('../../config/api');
 
-exports.find = async () => {
+exports.find = async (page = 1) => {
   const {
     data: {
       products,
       meta: { pageNumber },
     },
-  } = await api.get('/product/', { params: { page: 1 } });
+  } = await api.get('/product/', { params: { page } });
   return {
     page: pageNumber,
     products,
