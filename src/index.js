@@ -1,11 +1,12 @@
-require('dotenv').config();
-const routes = require('./app/routes');
-const app = require('./config/server');
+const server = require('./server');
+const sequelize = require('./config/database');
 
 const PORT = process.env.PORT || 3000;
 
-app.use(routes);
-
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+(async () => {
+  await sequelize.connect();
+  server.listen(PORT, () => {
+  // eslint-disable-next-line no-console
+    console.log(`Server running at http://localhost:${PORT}`);
+  });
+})();

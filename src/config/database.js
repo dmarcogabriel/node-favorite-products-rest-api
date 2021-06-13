@@ -5,7 +5,17 @@ const sequelize = new Sequelize({
   host: process.env.DB_HOST,
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
-  // database: process.env.DB_NAME,
+  logging: false,
 });
 
-module.exports = sequelize;
+const connect = async () => {
+  console.log('Connecting to database...');
+  await sequelize.sync({ force: true });
+  console.log('Database connected!');
+};
+
+const disconnect = async () => {
+  await sequelize.close();
+};
+
+module.exports = { connect, sequelize, disconnect };
