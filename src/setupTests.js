@@ -1,10 +1,10 @@
 require('dotenv').config();
-const database = require('./config/database');
+const db = require('./db');
 
 beforeAll(async () => {
-  await database.connect();
+  await db.connect();
 });
 
 afterAll(async () => {
-  await database.disconnect();
+  await db.disconnect();
 });
