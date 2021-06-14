@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken');
+const { isNil } = require('lodash');
 
 const SECRET_HASH = process.env.SECRET;
 
-const authorize = (req, res, next) => {
-  const token = String(req.headers['x-access-token']);
+const authorize = ({ headers }, res, next) => {
+  const token = headers['x-access-token'] ? String(headers['x-access-token']) : null;
 
-  if (!token) {
+  if (isNil(token)) {
     res.status(401).json({
       message: 'Access denied',
     });
