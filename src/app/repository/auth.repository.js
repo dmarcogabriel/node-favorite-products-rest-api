@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { isNil } = require('lodash');
-const User = require('../models/User');
+const { User } = require('../models');
 
 const SECRET_HASH = process.env.SECRET;
 const EXPIRATION_TIME = 60000;
