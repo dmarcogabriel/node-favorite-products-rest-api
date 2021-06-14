@@ -1,15 +1,21 @@
-const Product = require('../models/Product');
+const { Product } = require('../models');
 
 exports.create = async ({
-  id,
   title,
   image,
   price,
   userId,
+  reviewScore,
+  sku,
 }) => {
   const product = Product.build({
-    id, title, image, price, userId,
+    title, image, price, userId, reviewScore, sku,
   });
   await product.save();
+  return product;
+};
+
+exports.findByUserId = async userId => {
+  const product = await Product.findAll({ where: { userId } });
   return product;
 };
