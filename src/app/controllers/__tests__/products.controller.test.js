@@ -5,6 +5,16 @@ const { User, Product } = require('../../models');
 const productRepository = require('../../repository/products');
 const productService = require('../../services/products');
 
+let mockUserId;
+const mockProduct = {
+  id: 'test-sku',
+  title: 'Test product',
+  image: 'test-image-url',
+  price: 999.99,
+};
+let mockProductId;
+const mockSku = 'test-sku';
+
 jest.mock('jsonwebtoken', () => ({
   verify(token, _, callback) {
     if (token === 'token') {
@@ -14,14 +24,13 @@ jest.mock('jsonwebtoken', () => ({
     }
   },
 }));
-let mockUserId;
-const mockProduct = {
-  title: 'Test product',
-  image: 'test-image-url',
-  price: 999.99,
-  sku: 'test-sku',
-};
-let mockProductId;
+jest.mock('../../services/products', () => ({
+  findBySku: sku => ({ ...mockProduct, id: sku }),
+  find: () => ({
+    page: 1,
+    products: [{ ...mockProduct, id: mockSku }],
+  }),
+}));
 
 describe('Products controller', () => {
   beforeAll(async () => {
@@ -41,9 +50,9 @@ describe('Products controller', () => {
   describe('POST method', () => {
     it('should pass on POST', async () => {
       const res = await supertest(app)
-        .post('/products')
+        .post('/api/products')
         .set('x-access-token', 'token')
-        .send({ ...mockProduct, userId: mockUserId });
+        .send({ sku: mockSku, userId: mockUserId });
 
       const { message, data } = res.body;
       expect(res.status).toEqual(201);
@@ -52,7 +61,7 @@ describe('Products controller', () => {
       expect(data.title).toEqual(mockProduct.title);
       expect(data.image).toEqual(mockProduct.image);
       expect(data.price).toEqual(mockProduct.price);
-      expect(data.sku).toEqual(mockProduct.sku);
+      expect(data.sku).toEqual(mockProduct.id);
       expect(data.updatedAt).toEqual(expect.any(String));
       expect(data.createdAt).toEqual(expect.any(String));
       mockProductId = data.id;
@@ -61,9 +70,9 @@ describe('Products controller', () => {
     it('should pass on POST another product with other sku', async () => {
       const sku = 'test-sku-2';
       const res = await supertest(app)
-        .post('/products')
+        .post('/api/products')
         .set('x-access-token', 'token')
-        .send({ ...mockProduct, sku, userId: mockUserId });
+        .send({ sku, userId: mockUserId });
 
       const { message, data } = res.body;
       expect(res.status).toEqual(201);
@@ -79,9 +88,9 @@ describe('Products controller', () => {
 
     it('should fail on POST duplicated product', async () => {
       const res = await supertest(app)
-        .post('/products')
+        .post('/api/products')
         .set('x-access-token', 'token')
-        .send({ ...mockProduct, userId: mockUserId });
+        .send({ sku: mockSku, userId: mockUserId });
 
       expect(res.status).toEqual(400);
       expect(res.body.error).toEqual('Product is already favorited');
@@ -92,9 +101,9 @@ describe('Products controller', () => {
       sinon.stub(productRepository, 'create').throws(Error(errorMessage));
 
       const res = await supertest(app)
-        .post('/products')
+        .post('/api/products')
         .set('x-access-token', 'token')
-        .send({ ...mockProduct, sku: 'test-sku-3', userId: mockUserId });
+        .send({ sku: 'test-sku-3', userId: mockUserId });
 
       expect(res.status).toEqual(500);
       expect(res.body.error).toEqual(errorMessage);
@@ -102,7 +111,7 @@ describe('Products controller', () => {
 
     it('should fail on POST missing params', async () => {
       const res = await supertest(app)
-        .post('/products')
+        .post('/api/products')
         .set('x-access-token', 'token')
         .send({ });
 
@@ -114,7 +123,7 @@ describe('Products controller', () => {
   describe('GET method', () => {
     it('should pass on GET products', async () => {
       const res = await supertest(app)
-        .get('/products')
+        .get('/api/products')
         .set('x-access-token', 'token');
 
       const { message, data } = res.body;
@@ -122,7 +131,7 @@ describe('Products controller', () => {
       expect(message).toEqual('Products loaded successfully');
       expect(data.page).toEqual(1);
       expect(data.products).toEqual(expect.any(Array));
-      expect(data.products).toHaveLength(100);
+      expect(data.products).toHaveLength(1);
     });
 
     it('should fail to GET products', async () => {
@@ -130,7 +139,7 @@ describe('Products controller', () => {
       sinon.stub(productService, 'find').throws(Error(errorMessage));
 
       const res = await supertest(app)
-        .get('/products')
+        .get('/api/products')
         .set('x-access-token', 'token');
 
       expect(res.status).toEqual(500);

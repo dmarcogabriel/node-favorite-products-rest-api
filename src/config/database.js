@@ -5,7 +5,6 @@ const {
   DB_HOST,
   DB_USERNAME,
   DB_PASSWORD,
-  NODE_ENV,
 } = process.env;
 
 module.exports = {
@@ -13,6 +12,6 @@ module.exports = {
   host: DB_HOST,
   username: DB_USERNAME,
   password: DB_PASSWORD,
-  database: NODE_ENV === 'test' ? 'test-db' : DB_NAME,
+  database: DB_NAME,
   logging: false,
 };

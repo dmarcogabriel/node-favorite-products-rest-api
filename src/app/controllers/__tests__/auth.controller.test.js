@@ -41,7 +41,7 @@ describe('Auth controller', () => {
   describe('POST', () => {
     it('should pass on POST /auth/login', async () => {
       const res = await supertest(app)
-        .post('/auth/login')
+        .post('/api/auth/login')
         .send({
           email: mockUser.email,
           password: 'aaaaaa',
@@ -55,7 +55,7 @@ describe('Auth controller', () => {
 
     it('should fail on POST /auth/login missing password param', async () => {
       const res = await supertest(app)
-        .post('/auth/login')
+        .post('/api/auth/login')
         .send({
           email: mockUser.email,
         });
@@ -66,7 +66,7 @@ describe('Auth controller', () => {
 
     it('should fail on POST /auth/login missing email param', async () => {
       const res = await supertest(app)
-        .post('/auth/login')
+        .post('/api/auth/login')
         .send({
           password: mockUser.password,
         });
@@ -77,7 +77,7 @@ describe('Auth controller', () => {
 
     it('should fail on POST /auth/login wrong email/password combination', async () => {
       const res = await supertest(app)
-        .post('/auth/login')
+        .post('/api/auth/login')
         .send({
           email: 'another@email.com',
           password: mockUser.password,
@@ -91,7 +91,7 @@ describe('Auth controller', () => {
       const errorMessage = 'Testing server error';
       sinon.stub(authRepository, 'login').throws(Error(errorMessage));
       const res = await supertest(app)
-        .post('/auth/login')
+        .post('/api/auth/login')
         .send({
           email: 'another@email.com',
           password: mockUser.password,

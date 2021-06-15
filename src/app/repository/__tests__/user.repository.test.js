@@ -29,7 +29,6 @@ describe('User repository', () => {
   it('should pass on get users', async () => {
     const users = await userRepository.find();
     expect(users).toEqual(expect.any(Array));
-    expect(users).toHaveLength(1);
   });
 
   it('should pass on get user by id', async () => {

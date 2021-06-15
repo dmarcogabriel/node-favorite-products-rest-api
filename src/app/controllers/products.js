@@ -3,10 +3,10 @@ const validator = require('../utils/validator');
 const repository = require('../repository/products');
 const { favoriteProduct } = require('../policies/favoriteProduct');
 
-exports.get = async (_, res) => {
+exports.get = async (req, res) => {
   try {
-    const { page, products } = await service.find();
-    res.json({
+    const { page, products } = await service.find(req.query.page);
+    res.status(200).json({
       message: 'Products loaded successfully',
       data: {
         page,
@@ -22,63 +22,30 @@ exports.get = async (_, res) => {
 
 exports.getById = async (req, res) => {
   try {
-    const invalidParams = validator.validatePresence(req.params, ['id']);
-    if (invalidParams) {
-      res.status(400).json({
-        error: invalidParams,
-      });
-    } else {
-      const product = await service.findById(req.params.id);
+    const product = await repository.fingById(req.params.id);
+    if (product) {
       res.status(200).json({
         message: 'Product loaded successfully',
-        data: product,
-      });
-    }
-  } catch (error) {
-    if (error.response) {
-      const { response } = error;
-      res.status(response.status || 404).json({
-        error: response.data.error_message || 'Product not found',
+        data: {
+          product,
+        },
       });
     } else {
-      res.status(500).json({
-        error: error.message,
-      });
-    }
-  }
-};
+      res.status(400).json({
+        error: 'Product not founded',
 
-exports.getByUserId = async (req, res) => {
-  try {
-    const invalidParams = validator.validatePresence(req.params, ['userId']);
-    if (invalidParams) {
-      res.status(400).json({
-        error: invalidParams,
-      });
-    } else {
-      const product = await service.findById(req.params.id);
-      res.status(200).json({
-        message: 'Product loaded successfully',
-        data: product,
       });
     }
   } catch (error) {
-    if (error.response) {
-      const { response } = error;
-      res.status(response.status || 404).json({
-        error: response.data.error_message || 'Product not found',
-      });
-    } else {
-      res.status(500).json({
-        error: error.message,
-      });
-    }
+    res.status(500).json({
+      error: error.message,
+    });
   }
 };
 
 exports.post = async (req, res) => {
   try {
-    const params = ['title', 'image', 'price', 'userId', 'sku'];
+    const params = ['userId', 'sku'];
     const invalidBody = validator.validatePresence(req.body, params);
     if (invalidBody) {
       res.status(400).json({
@@ -92,7 +59,12 @@ exports.post = async (req, res) => {
           error: errorMessage,
         });
       } else {
-        const product = await repository.create(req.body);
+        const {
+          price, image, title, id: sku, reviewScore,
+        } = await service.findBySku(req.body.sku);
+        const product = await repository.create({
+          image, price, reviewScore, sku, title, userId: req.body.userId,
+        });
         res.status(201).json({
           message: 'Product created successfully',
           data: product,

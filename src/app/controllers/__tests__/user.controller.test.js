@@ -27,7 +27,7 @@ describe('User controller', () => {
   describe('POST', () => {
     it('should pass on POST /users', async () => {
       const res = await supertest(app)
-        .post('/users')
+        .post('/api/users')
         .send(mockUser)
         .set('x-access-token', 'token');
 
@@ -43,7 +43,7 @@ describe('User controller', () => {
 
     it('should fail on POST /users with duplicated email', async () => {
       const res = await supertest(app)
-        .post('/users')
+        .post('/api/users')
         .send({
           name: 'Tester Two',
           email: mockUser.email,
@@ -58,7 +58,7 @@ describe('User controller', () => {
       const errorMessage = 'Testing error';
       sinon.stub(userRepository, 'create').throws(Error(errorMessage));
       const res = await supertest(app)
-        .post('/users')
+        .post('/api/users')
         .send(mockUser);
 
       expect(res.status).toEqual(500);
@@ -67,7 +67,7 @@ describe('User controller', () => {
 
     it('should fail on POST /users with null params', async () => {
       const res = await supertest(app)
-        .post('/users')
+        .post('/api/users')
         .send({});
 
       expect(res.status).toEqual(400);
@@ -76,7 +76,7 @@ describe('User controller', () => {
 
     it('should fail on POST /users missing required params', async () => {
       const res = await supertest(app)
-        .post('/users')
+        .post('/api/users')
         .send({ password: 'password' });
 
       expect(res.status).toEqual(400);
@@ -85,7 +85,7 @@ describe('User controller', () => {
 
     it('should fail on POST /users invalid email', async () => {
       const res = await supertest(app)
-        .post('/users')
+        .post('/api/users')
         .send({ email: 'invalid', name: 'name', password: 'password' });
 
       expect(res.status).toEqual(400);
@@ -96,7 +96,7 @@ describe('User controller', () => {
   describe('GET method', () => {
     it('should pass on GET /users', async () => {
       const res = await supertest(app)
-        .get('/users')
+        .get('/api/users')
         .set('x-access-token', 'token');
 
       const { message, data } = res.body;
@@ -109,7 +109,7 @@ describe('User controller', () => {
       const errorMessage = 'Testing error';
       sinon.stub(userRepository, 'find').throws(Error(errorMessage));
       const res = await supertest(app)
-        .get('/users')
+        .get('/api/users')
         .set('x-access-token', 'token');
 
       expect(res.status).toEqual(500);
@@ -120,7 +120,7 @@ describe('User controller', () => {
   describe('GET By ID method', () => {
     it('should pass on GET /users/:id', async () => {
       const res = await supertest(app)
-        .get(`/users/${mockUserId}`)
+        .get(`/api/users/${mockUserId}`)
         .set('x-access-token', 'token');
 
       const { message, data } = res.body;
@@ -136,7 +136,7 @@ describe('User controller', () => {
       const errorMessage = 'Testing error';
       sinon.stub(userRepository, 'findOne').throws(Error(errorMessage));
       const res = await supertest(app)
-        .get(`/users/${mockUserId}`)
+        .get(`/api/users/${mockUserId}`)
         .set('x-access-token', 'token');
 
       expect(res.status).toEqual(500);
@@ -147,7 +147,7 @@ describe('User controller', () => {
   describe('PUT method', () => {
     it('should pass on PUT /users/:id', async () => {
       const res = await supertest(app)
-        .put(`/users/${mockUserId}`)
+        .put(`/api/users/${mockUserId}`)
         .set('x-access-token', 'token')
         .send({ ...mockUser, name: 'Updated Name' });
 
@@ -164,7 +164,7 @@ describe('User controller', () => {
       const errorMessage = 'Testing error';
       sinon.stub(userRepository, 'update').throws(Error(errorMessage));
       const res = await supertest(app)
-        .put(`/users/${mockUserId}`)
+        .put(`/api/users/${mockUserId}`)
         .set('x-access-token', 'token')
         .send({ ...mockUser, name: 'Updated Name' });
 
@@ -176,7 +176,7 @@ describe('User controller', () => {
   describe('DELETE method', () => {
     it('should pass on DELETE /users/:id', async () => {
       const res = await supertest(app)
-        .delete(`/users/${mockUserId}`)
+        .delete(`/api/users/${mockUserId}`)
         .set('x-access-token', 'token');
 
       const { message } = res.body;
@@ -188,7 +188,7 @@ describe('User controller', () => {
       const errorMessage = 'Testing error';
       sinon.stub(userRepository, 'remove').throws(Error(errorMessage));
       const res = await supertest(app)
-        .delete(`/users/${mockUserId}`)
+        .delete(`/api/users/${mockUserId}`)
         .set('x-access-token', 'token');
 
       expect(res.status).toEqual(500);

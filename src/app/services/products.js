@@ -13,7 +13,7 @@ exports.find = async (page = 1) => {
   };
 };
 
-exports.findById = async id => {
-  const { data } = await api.get(`/product/${id}/`);
+exports.findBySku = async sku => {
+  const { data } = await api.get(`/product/${sku}/`);
   return data;
 };

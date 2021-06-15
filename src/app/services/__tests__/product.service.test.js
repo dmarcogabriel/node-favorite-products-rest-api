@@ -16,7 +16,7 @@ describe('Product service', () => {
   it('should pass on GET product by id', async () => {
     const { products } = await productService.find();
     const [product] = products;
-    const data = await productService.findById(product.id);
+    const data = await productService.findBySku(product.id);
     expect(data).toEqual(product);
   });
 });

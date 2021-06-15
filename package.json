@@ -37,20 +37,19 @@
   },
   "scripts": {
     "#": "=== CONFIG COMMANDS ===",
-    "config:all": "yarn config:dev && yarn docker:down && yarn config:test && yarn docker:down",
-    "config:dev": "cross-env NODE_ENV=development yarn docker:up && yarn db:create:dev && yarn migrate",
-    "config:test": "cross-env NODE_ENV=test yarn docker:up && yarn db:create:test && yarn migrate",
     "docker:up": "docker-compose up -d",
+    "docker:test:up": "cross-env DB_NAME=test-db yarn docker:up",
     "docker:down": "docker-compose down",
     "##": "=== RUN COMMANDS ===",
-    "start": "cross-env NODE_ENV=development nodemon",
+    "start": "nodemon",
     "###": "=== TEST COMMANDS ===",
-    "test": "cross-env NODE_ENV=test jest --watch",
-    "test:c": "cross-env NODE_ENV=test jest --coverage",
+    "test": "cross-env DB_NAME=test-db jest --watch",
+    "test:c": "cross-env DB_NAME=test-db jest --coverage",
     "####": "=== DATABASE ===",
     "sequelize": "sequelize-cli",
-    "db:create:dev": "cross-env NODE_ENV=development sequelize-cli db:create",
-    "db:create:test": "cross-env NODE_ENV=test sequelize-cli db:create",
-    "migrate": "sequelize-cli db:migrate"
+    "db:create": "sequelize-cli db:create",
+    "db:create:test": "cross-env DB_NAME=test-db sequelize-cli db:create",
+    "migrate": "sequelize-cli db:migrate",
+    "migrate:test": "cross-env DB_NAME=test-db yarn migrate"
   }
 }

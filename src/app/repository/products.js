@@ -19,3 +19,8 @@ exports.findByUserId = async userId => {
   const product = await Product.findAll({ where: { userId } });
   return product;
 };
+
+exports.fingById = async id => {
+  const product = await Product.findOne({ where: { id } });
+  return product;
+};
