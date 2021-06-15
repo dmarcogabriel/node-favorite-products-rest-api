@@ -13,6 +13,7 @@ User.hasMany(Product, {
     name: 'userId',
     allowNull: false,
   },
+  onDelete: 'CASCADE',
 });
 Product.belongsTo(User);
 

@@ -1,8 +1,8 @@
 const userRepository = require('../users');
 
 const mockUser = {
-  name: 'User Tester',
-  email: 'user_tester_1@tester.com',
+  name: 'User Repo Tester',
+  email: 'user_repo@tester.com',
   password: 'aaaaaa',
 };
 let mockUserId;
@@ -44,9 +44,9 @@ describe('User repository', () => {
   it('should pass on update user', async () => {
     const user = await userRepository.update(mockUserId, {
       ...mockUser,
-      name: 'Updated Tester',
+      name: 'Updated User Repo Tester',
     });
-    expect(user.name).toEqual('Updated Tester');
+    expect(user.name).toEqual('Updated User Repo Tester');
   });
 
   it('should fail on update user', async () => {

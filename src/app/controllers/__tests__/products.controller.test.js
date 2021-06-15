@@ -1,8 +1,7 @@
 const supertest = require('supertest');
 const sinon = require('sinon');
 const app = require('../../../server');
-const db = require('../../../db');
-const { User } = require('../../models');
+const { User, Product } = require('../../models');
 const productRepository = require('../../repository/products');
 const productService = require('../../services/products');
 
@@ -22,20 +21,21 @@ const mockProduct = {
   price: 999.99,
   sku: 'test-sku',
 };
+let mockProductId;
 
 describe('Products controller', () => {
   beforeAll(async () => {
-    await db.connect();
     const user = await User.create({
-      name: 'Tester tester',
+      name: 'Products tester',
       password: 'aaaaaa',
-      email: 'tester@tester.com',
+      email: 'products@email.com',
     });
     mockUserId = user.id;
   });
 
   afterAll(async () => {
-    await db.disconnect();
+    await User.destroy({ where: { id: mockUserId } });
+    await Product.destroy({ where: { id: mockProductId } });
   });
 
   describe('POST method', () => {
@@ -55,6 +55,7 @@ describe('Products controller', () => {
       expect(data.sku).toEqual(mockProduct.sku);
       expect(data.updatedAt).toEqual(expect.any(String));
       expect(data.createdAt).toEqual(expect.any(String));
+      mockProductId = data.id;
     });
 
     it('should pass on POST another product with other sku', async () => {
@@ -113,7 +114,8 @@ describe('Products controller', () => {
   describe('GET method', () => {
     it('should pass on GET products', async () => {
       const res = await supertest(app)
-        .get('/products');
+        .get('/products')
+        .set('x-access-token', 'token');
 
       const { message, data } = res.body;
       expect(res.status).toEqual(200);
@@ -127,7 +129,9 @@ describe('Products controller', () => {
       const errorMessage = 'Error on finding products';
       sinon.stub(productService, 'find').throws(Error(errorMessage));
 
-      const res = await supertest(app).get('/products');
+      const res = await supertest(app)
+        .get('/products')
+        .set('x-access-token', 'token');
 
       expect(res.status).toEqual(500);
       expect(res.body.error).toEqual(errorMessage);

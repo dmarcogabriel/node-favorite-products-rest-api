@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt');
 const productRepository = require('../products');
 const { User } = require('../../models');
 
@@ -14,13 +13,16 @@ let mockUserId;
 
 describe('Product repository', () => {
   beforeAll(async () => {
-    const user = User.build({
-      name: 'Tester',
-      email: 'tester2@email.com',
-      password: bcrypt.hashSync('aaaaaa', bcrypt.genSaltSync()),
+    const user = await User.create({
+      name: 'Product Repo Tester',
+      email: 'product_repo@email.com',
+      password: 'aaaaaa',
     });
-    const { id } = await user.save();
-    mockUserId = id;
+    mockUserId = user.id;
+  });
+
+  afterAll(async () => {
+    await User.destroy({ where: { id: mockUserId }, cascade: true });
   });
 
   it('should pass on create product', async () => {

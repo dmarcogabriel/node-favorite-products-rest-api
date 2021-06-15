@@ -6,9 +6,7 @@ exports.post = async (req, res) => {
     const errorMessage = validator.validatePresence(req.body, ['email', 'password']);
     if (errorMessage) {
       res.status(400).json({
-        error: {
-          message: errorMessage,
-        },
+        error: errorMessage,
       });
     } else {
       const token = await repository.login(req.body);
@@ -27,9 +25,7 @@ exports.post = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({
-      data: {
-        error: error.message,
-      },
+      error: error.message,
     });
   }
 };

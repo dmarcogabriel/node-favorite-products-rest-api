@@ -2,17 +2,17 @@ const bcrypt = require('bcrypt');
 const authRepository = require('../auth.repository');
 const { User } = require('../../models');
 
+const mockUser = {
+  email: 'auth_repository@email.com',
+  password: bcrypt.hashSync('aaaaaa', bcrypt.genSaltSync()),
+  name: 'Auth Repo Tester',
+};
 let mockUserId;
 
 describe('User repository', () => {
   beforeAll(async () => {
-    const user = User.build({
-      email: 'tester@email.com',
-      password: bcrypt.hashSync('aaaaaa', bcrypt.genSaltSync()),
-      name: 'User Tester',
-    });
-    const { id } = await user.save();
-    mockUserId = id;
+    const user = await User.create(mockUser);
+    mockUserId = user.id;
   });
 
   afterAll(async () => {
@@ -21,20 +21,13 @@ describe('User repository', () => {
 
   it('should pass on authentication', async () => {
     const token = await authRepository.login({
-      email: 'tester@email.com',
+      email: mockUser.email,
       password: 'aaaaaa',
     });
     expect(token).toEqual(expect.any(String));
   });
 
   it('should fail on authentication without email', async () => {
-    const token = await authRepository.login({
-      password: 'aaaaaa',
-    });
-    expect(token).toEqual(null);
-  });
-
-  it('should fail on authentication missing  email', async () => {
     const token = await authRepository.login({
       password: 'aaaaaa',
     });
@@ -51,14 +44,14 @@ describe('User repository', () => {
 
   it('should fail on authentication missing password', async () => {
     const token = await authRepository.login({
-      email: 'tester@email.com',
+      email: mockUser.email,
     });
     expect(token).toEqual(null);
   });
 
   it('should fail on authentication wrong password', async () => {
     const token = await authRepository.login({
-      email: 'tester@email.com',
+      email: mockUser.email,
       password: 'bbbbbb',
     });
     expect(token).toEqual(null);
