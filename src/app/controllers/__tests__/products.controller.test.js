@@ -171,7 +171,7 @@ describe('Products controller', () => {
 
     it('should fail to GET product by ID', async () => {
       const errorMessage = 'Error on finding products';
-      sinon.stub(productRepository, 'fingById').throws(Error(errorMessage));
+      sinon.stub(productRepository, 'findById').throws(Error(errorMessage));
 
       const res = await supertest(app)
         .get(`/api/products/${mockProductId}`)

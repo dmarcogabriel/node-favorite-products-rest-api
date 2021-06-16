@@ -22,7 +22,7 @@ exports.get = async (req, res) => {
 
 exports.getById = async (req, res) => {
   try {
-    const product = await productRepository.fingById(req.params.id);
+    const product = await productRepository.findById(req.params.id);
     if (product) {
       res.status(200).json({
         message: 'Product loaded successfully',

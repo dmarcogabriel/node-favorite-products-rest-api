@@ -20,7 +20,7 @@ exports.findByUserId = async userId => {
   return product;
 };
 
-exports.fingById = async id => {
+exports.findById = async id => {
   const product = await Product.findOne({ where: { id } });
   return product;
 };

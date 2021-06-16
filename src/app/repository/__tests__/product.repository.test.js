@@ -46,7 +46,7 @@ describe('Product repository', () => {
 
   describe('find by id', () => {
     it('should pass on find by id', async () => {
-      const product = await productRepository.fingById(mockProductId);
+      const product = await productRepository.findById(mockProductId);
       expect(product.id).toEqual(mockProductId);
       expect(product.title).toEqual(mockProduct.title);
       expect(product.image).toEqual(mockProduct.image);
@@ -57,7 +57,7 @@ describe('Product repository', () => {
     });
 
     it('should fail on find by id missing id', async () => {
-      await productRepository.fingById().catch(err => {
+      await productRepository.findById().catch(err => {
         expect(err.message)
           .toEqual(
             // eslint-disable-next-line no-useless-escape
