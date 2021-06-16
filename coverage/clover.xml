@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1623803823309" clover="3.2.0">
-  <project timestamp="1623803823314" name="All files">
+<coverage generated="1623805530487" clover="3.2.0">
+  <project timestamp="1623805530487" name="All files">
     <metrics statements="238" coveredstatements="238" conditionals="55" coveredconditionals="55" methods="31" coveredmethods="31" elements="324" coveredelements="324" complexity="0" loc="238" ncloc="238" packages="11" files="22" classes="22"/>
     <package name="src">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -178,7 +178,7 @@
         <line num="16" count="2" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
       </file>
-      <file name="products.js" path="/home/gabrieldemarco/node-favorite-products-rest-api/src/app/repository/products.js">
+      <file name="product.repository.js" path="/home/gabrieldemarco/node-favorite-products-rest-api/src/app/repository/product.repository.js">
         <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -192,7 +192,7 @@
         <line num="24" count="3" type="stmt"/>
         <line num="25" count="2" type="stmt"/>
       </file>
-      <file name="users.js" path="/home/gabrieldemarco/node-favorite-products-rest-api/src/app/repository/users.js">
+      <file name="user.repository.js" path="/home/gabrieldemarco/node-favorite-products-rest-api/src/app/repository/user.repository.js">
         <metrics statements="20" coveredstatements="20" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -238,7 +238,7 @@
         <line num="10" count="3" type="stmt"/>
         <line num="12" count="3" type="stmt"/>
       </file>
-      <file name="products.js" path="/home/gabrieldemarco/node-favorite-products-rest-api/src/app/routes/products.js">
+      <file name="product.routes.js" path="/home/gabrieldemarco/node-favorite-products-rest-api/src/app/routes/product.routes.js">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -249,7 +249,7 @@
         <line num="9" count="3" type="stmt"/>
         <line num="11" count="3" type="stmt"/>
       </file>
-      <file name="user.js" path="/home/gabrieldemarco/node-favorite-products-rest-api/src/app/routes/user.js">
+      <file name="user.routes.js" path="/home/gabrieldemarco/node-favorite-products-rest-api/src/app/routes/user.routes.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -265,7 +265,7 @@
     </package>
     <package name="src.app.services">
       <metrics statements="7" coveredstatements="7" conditionals="1" coveredconditionals="1" methods="2" coveredmethods="2"/>
-      <file name="products.js" path="/home/gabrieldemarco/node-favorite-products-rest-api/src/app/services/products.js">
+      <file name="product.service.js" path="/home/gabrieldemarco/node-favorite-products-rest-api/src/app/services/product.service.js">
         <metrics statements="7" coveredstatements="7" conditionals="1" coveredconditionals="1" methods="2" coveredmethods="2"/>
         <line num="1" count="3" type="stmt"/>
         <line num="3" count="3" type="cond" truecount="1" falsecount="0"/>
