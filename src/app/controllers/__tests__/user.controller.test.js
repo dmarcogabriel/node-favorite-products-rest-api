@@ -171,6 +171,16 @@ describe('User controller', () => {
       expect(res.status).toEqual(500);
       expect(res.body.error).toEqual(errorMessage);
     });
+
+    it('should fail on PUT /users/:id with missing required params', async () => {
+      const res = await supertest(app)
+        .put(`/api/users/${mockUserId}`)
+        .set('x-access-token', 'token')
+        .send({ name: 'Updated Name' });
+
+      expect(res.status).toEqual(400);
+      expect(res.body.error).toEqual('Missing required params: email');
+    });
   });
 
   describe('DELETE method', () => {
