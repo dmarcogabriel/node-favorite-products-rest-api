@@ -50,6 +50,7 @@
     "db:create": "sequelize-cli db:create",
     "db:create:test": "cross-env DB_NAME=test-db sequelize-cli db:create",
     "migrate": "sequelize-cli db:migrate",
-    "migrate:test": "cross-env DB_NAME=test-db yarn migrate"
+    "migrate:test": "cross-env DB_NAME=test-db yarn migrate",
+    "lint": "eslint src"
   }
 }

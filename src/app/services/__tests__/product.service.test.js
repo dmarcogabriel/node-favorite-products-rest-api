@@ -1,4 +1,4 @@
-const productService = require('../products');
+const productService = require('../product.service');
 
 describe('Product service', () => {
   it('should pass on GET products', async () => {
