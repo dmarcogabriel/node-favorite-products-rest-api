@@ -1,7 +1,7 @@
 const supertest = require('supertest');
 const sinon = require('sinon');
 const app = require('../../../server');
-const userRepository = require('../../repository/users');
+const userRepository = require('../../repository/user.repository');
 
 jest.mock('jsonwebtoken', () => ({
   verify(token, _, callback) {

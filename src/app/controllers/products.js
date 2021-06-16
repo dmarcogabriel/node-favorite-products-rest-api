@@ -1,6 +1,6 @@
-const service = require('../services/products');
+const service = require('../services/product.service');
 const validator = require('../utils/validator');
-const repository = require('../repository/products');
+const productRepository = require('../repository/product.repository');
 const { favoriteProduct } = require('../policies/favoriteProduct');
 
 exports.get = async (req, res) => {
@@ -22,7 +22,7 @@ exports.get = async (req, res) => {
 
 exports.getById = async (req, res) => {
   try {
-    const product = await repository.fingById(req.params.id);
+    const product = await productRepository.fingById(req.params.id);
     if (product) {
       res.status(200).json({
         message: 'Product loaded successfully',
@@ -52,7 +52,7 @@ exports.post = async (req, res) => {
         error: invalidBody,
       });
     } else {
-      const favoritedProducts = await repository.findByUserId(req.body.userId);
+      const favoritedProducts = await productRepository.findByUserId(req.body.userId);
       const errorMessage = favoriteProduct(req.body.sku, favoritedProducts);
       if (errorMessage) {
         res.status(400).json({
@@ -62,7 +62,7 @@ exports.post = async (req, res) => {
         const {
           price, image, title, id: sku, reviewScore,
         } = await service.findBySku(req.body.sku);
-        const product = await repository.create({
+        const product = await productRepository.create({
           image, price, reviewScore, sku, title, userId: req.body.userId,
         });
         res.status(201).json({

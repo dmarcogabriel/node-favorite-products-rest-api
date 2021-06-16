@@ -1,9 +1,9 @@
 const validator = require('../utils/validator');
-const repository = require('../repository/users');
+const userRepository = require('../repository/user.repository');
 
 exports.get = async (_, res) => {
   try {
-    const users = await repository.find();
+    const users = await userRepository.find();
     res.status(200).json({
       message: 'Users loaded successfully',
       data: {
@@ -19,7 +19,7 @@ exports.get = async (_, res) => {
 
 exports.getById = async (req, res) => {
   try {
-    const user = await repository.findOne(req.params.id);
+    const user = await userRepository.findOne(req.params.id);
     res.status(200).json({
       message: 'User loaded successfully',
       data: {
@@ -49,7 +49,7 @@ exports.post = async (req, res) => {
           error: errorMessage,
         });
       } else {
-        const user = await repository.create(req.body);
+        const user = await userRepository.create(req.body);
         res.status(201).json({
           message: 'User created successfully',
           data: {
@@ -73,7 +73,7 @@ exports.put = async (req, res) => {
         error: errorMessage,
       });
     } else {
-      const user = await repository.update(req.params.id, req.body);
+      const user = await userRepository.update(req.params.id, req.body);
       res.status(200).json({
         message: 'User updated successfully',
         data: {
@@ -90,7 +90,7 @@ exports.put = async (req, res) => {
 
 exports.delete = async (req, res) => {
   try {
-    await repository.remove(req.params.id);
+    await userRepository.remove(req.params.id);
     res.status(200).json({
       message: 'User deleted successfully',
     });

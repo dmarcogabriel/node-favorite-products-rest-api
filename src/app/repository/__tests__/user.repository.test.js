@@ -1,4 +1,4 @@
-const userRepository = require('../users');
+const userRepository = require('../user.repository');
 
 const mockUser = {
   name: 'User Repo Tester',

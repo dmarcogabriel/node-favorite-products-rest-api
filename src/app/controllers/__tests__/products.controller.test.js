@@ -2,8 +2,8 @@ const supertest = require('supertest');
 const sinon = require('sinon');
 const app = require('../../../server');
 const { User, Product } = require('../../models');
-const productRepository = require('../../repository/products');
-const productService = require('../../services/products');
+const productRepository = require('../../repository/product.repository');
+const productService = require('../../services/product.service');
 
 let mockUserId;
 const mockProduct = {
@@ -24,7 +24,7 @@ jest.mock('jsonwebtoken', () => ({
     }
   },
 }));
-jest.mock('../../services/products', () => ({
+jest.mock('../../services/product.service', () => ({
   findBySku: sku => ({ ...mockProduct, id: sku }),
   find: () => ({
     page: 1,

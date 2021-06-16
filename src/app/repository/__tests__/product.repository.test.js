@@ -1,4 +1,4 @@
-const productRepository = require('../products');
+const productRepository = require('../product.repository');
 const { User } = require('../../models');
 
 const mockProduct = {
