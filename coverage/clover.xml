@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1623803239510" clover="3.2.0">
-  <project timestamp="1623803239510" name="All files">
-    <metrics statements="244" coveredstatements="241" conditionals="59" coveredconditionals="56" methods="31" coveredmethods="31" elements="334" coveredelements="328" complexity="0" loc="244" ncloc="244" packages="11" files="22" classes="22"/>
+<coverage generated="1623803823309" clover="3.2.0">
+  <project timestamp="1623803823314" name="All files">
+    <metrics statements="238" coveredstatements="238" conditionals="55" coveredconditionals="55" methods="31" coveredmethods="31" elements="324" coveredelements="324" complexity="0" loc="238" ncloc="238" packages="11" files="22" classes="22"/>
     <package name="src">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="server.js" path="/home/gabrieldemarco/node-favorite-products-rest-api/src/server.js">
@@ -14,7 +14,7 @@
       </file>
     </package>
     <package name="src.app.controllers">
-      <metrics statements="84" coveredstatements="81" conditionals="20" coveredconditionals="17" methods="9" coveredmethods="9"/>
+      <metrics statements="78" coveredstatements="78" conditionals="16" coveredconditionals="16" methods="9" coveredmethods="9"/>
       <file name="auth.controller.js" path="/home/gabrieldemarco/node-favorite-products-rest-api/src/app/controllers/auth.controller.js">
         <metrics statements="12" coveredstatements="12" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
         <line num="1" count="3" type="stmt"/>
@@ -64,7 +64,7 @@
         <line num="75" count="1" type="stmt"/>
       </file>
       <file name="user.js" path="/home/gabrieldemarco/node-favorite-products-rest-api/src/app/controllers/user.js">
-        <metrics statements="42" coveredstatements="39" conditionals="10" coveredconditionals="7" methods="5" coveredmethods="5"/>
+        <metrics statements="36" coveredstatements="36" conditionals="6" coveredconditionals="6" methods="5" coveredmethods="5"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
         <line num="4" count="3" type="stmt"/>
@@ -89,24 +89,18 @@
         <line num="53" count="1" type="stmt"/>
         <line num="62" count="2" type="stmt"/>
         <line num="68" count="3" type="stmt"/>
-        <line num="69" count="2" type="stmt"/>
-        <line num="70" count="2" type="stmt"/>
-        <line num="71" count="2" type="stmt"/>
-        <line num="72" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="73" count="0" type="stmt"/>
-        <line num="76" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="77" count="0" type="stmt"/>
-        <line num="81" count="2" type="stmt"/>
-        <line num="82" count="1" type="stmt"/>
-        <line num="90" count="1" type="stmt"/>
-        <line num="96" count="3" type="stmt"/>
-        <line num="97" count="2" type="stmt"/>
-        <line num="98" count="2" type="stmt"/>
-        <line num="99" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="100" count="0" type="stmt"/>
-        <line num="104" count="2" type="stmt"/>
-        <line num="105" count="1" type="stmt"/>
-        <line num="110" count="1" type="stmt"/>
+        <line num="69" count="3" type="stmt"/>
+        <line num="70" count="3" type="stmt"/>
+        <line num="71" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="76" count="2" type="stmt"/>
+        <line num="77" count="1" type="stmt"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="91" count="3" type="stmt"/>
+        <line num="92" count="2" type="stmt"/>
+        <line num="93" count="2" type="stmt"/>
+        <line num="94" count="1" type="stmt"/>
+        <line num="98" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.app.middlewares">
@@ -117,13 +111,13 @@
         <line num="2" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
         <line num="6" count="4" type="stmt"/>
-        <line num="7" count="22" type="cond" truecount="2" falsecount="0"/>
-        <line num="9" count="22" type="cond" truecount="2" falsecount="0"/>
+        <line num="7" count="23" type="cond" truecount="2" falsecount="0"/>
+        <line num="9" count="23" type="cond" truecount="2" falsecount="0"/>
         <line num="10" count="2" type="stmt"/>
-        <line num="14" count="20" type="stmt"/>
-        <line num="15" count="20" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="21" type="stmt"/>
+        <line num="15" count="21" type="cond" truecount="2" falsecount="0"/>
         <line num="16" count="1" type="stmt"/>
-        <line num="19" count="19" type="stmt"/>
+        <line num="19" count="20" type="stmt"/>
         <line num="24" count="4" type="stmt"/>
       </file>
     </package>
@@ -288,14 +282,14 @@
         <metrics statements="20" coveredstatements="20" conditionals="17" coveredconditionals="17" methods="4" coveredmethods="4"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="4" count="29" type="cond" truecount="2" falsecount="0"/>
-        <line num="5" count="28" type="stmt"/>
-        <line num="7" count="28" type="cond" truecount="2" falsecount="0"/>
-        <line num="9" count="24" type="stmt"/>
-        <line num="10" count="47" type="cond" truecount="2" falsecount="0"/>
-        <line num="11" count="6" type="stmt"/>
-        <line num="14" count="24" type="cond" truecount="2" falsecount="0"/>
-        <line num="15" count="5" type="stmt"/>
+        <line num="4" count="26" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="25" type="stmt"/>
+        <line num="7" count="25" type="cond" truecount="2" falsecount="0"/>
+        <line num="9" count="21" type="stmt"/>
+        <line num="10" count="45" type="cond" truecount="2" falsecount="0"/>
+        <line num="11" count="7" type="stmt"/>
+        <line num="14" count="21" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="6" type="stmt"/>
         <line num="18" count="4" type="stmt"/>
         <line num="19" count="10" type="cond" truecount="2" falsecount="0"/>
         <line num="21" count="9" type="stmt"/>

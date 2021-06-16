@@ -68,12 +68,7 @@ exports.post = async (req, res) => {
 exports.put = async (req, res) => {
   try {
     const errorMessage = validator.validatePresence(req.body, ['name', 'email']);
-    const paramsErrorMessage = validator.validatePresence(req.params, ['id']);
     if (errorMessage) {
-      res.status(400).json({
-        error: errorMessage,
-      });
-    } else if (paramsErrorMessage) {
       res.status(400).json({
         error: errorMessage,
       });
@@ -95,17 +90,10 @@ exports.put = async (req, res) => {
 
 exports.delete = async (req, res) => {
   try {
-    const errorMessage = validator.validatePresence(req.params, ['id']);
-    if (errorMessage) {
-      res.status(400).json({
-        error: errorMessage,
-      });
-    } else {
-      await repository.remove(req.params.id);
-      res.status(200).json({
-        message: 'User deleted successfully',
-      });
-    }
+    await repository.remove(req.params.id);
+    res.status(200).json({
+      message: 'User deleted successfully',
+    });
   } catch (error) {
     res.status(500).json({
       error: error.message,
