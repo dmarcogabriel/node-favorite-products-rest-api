@@ -42,6 +42,10 @@ describe('Products controller', () => {
     mockUserId = user.id;
   });
 
+  beforeEach(() => {
+    sinon.reset();
+  });
+
   afterAll(async () => {
     await User.destroy({ where: { id: mockUserId } });
     await Product.destroy({ where: { id: mockProductId } });
@@ -144,6 +148,46 @@ describe('Products controller', () => {
 
       expect(res.status).toEqual(500);
       expect(res.body.error).toEqual(errorMessage);
+    });
+  });
+
+  describe('GET by ID method', () => {
+    it('should pass on GET product by id', async () => {
+      const res = await supertest(app)
+        .get(`/api/products/${mockProductId}`)
+        .set('x-access-token', 'token');
+
+      const { message, data } = res.body;
+      expect(res.status).toEqual(200);
+      expect(message).toEqual('Product loaded successfully');
+      expect(data.product.id).toEqual(mockProductId);
+      expect(data.product.title).toEqual(mockProduct.title);
+      expect(data.product.image).toEqual(mockProduct.image);
+      expect(data.product.price).toEqual(mockProduct.price);
+      expect(data.product.sku).toEqual(mockProduct.id);
+      expect(data.product.updatedAt).toEqual(expect.any(String));
+      expect(data.product.createdAt).toEqual(expect.any(String));
+    });
+
+    it('should fail to GET product by ID', async () => {
+      const errorMessage = 'Error on finding products';
+      sinon.stub(productRepository, 'fingById').throws(Error(errorMessage));
+
+      const res = await supertest(app)
+        .get(`/api/products/${mockProductId}`)
+        .set('x-access-token', 'token');
+
+      expect(res.status).toEqual(500);
+      expect(res.body.error).toEqual(errorMessage);
+    });
+
+    it('should fail to GET product by ID with wrong ID', async () => {
+      const res = await supertest(app)
+        .get(`/api/products/${mockProductId + 1}`)
+        .set('x-access-token', 'token');
+
+      expect(res.status).toEqual(400);
+      expect(res.body.error).toEqual('Product not founded');
     });
   });
 });

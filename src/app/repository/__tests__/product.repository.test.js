@@ -8,8 +8,8 @@ const mockProduct = {
   reviewScore: 4.9,
   sku: 'this-is-a-sku',
 };
-
 let mockUserId;
+let mockProductId;
 
 describe('Product repository', () => {
   beforeAll(async () => {
@@ -34,11 +34,36 @@ describe('Product repository', () => {
     expect(product.price).toEqual(mockProduct.price);
     expect(product.reviewScore).toEqual(mockProduct.reviewScore);
     expect(product.userId).toEqual(mockUserId);
+    expect(product.sku).toEqual(mockProduct.sku);
+    mockProductId = product.id;
   });
 
   it('should get products by user id', async () => {
     const products = await productRepository.findByUserId(mockUserId);
     expect(products).toEqual(expect.any(Array));
     expect(products).toHaveLength(1);
+  });
+
+  describe('find by id', () => {
+    it('should pass on find by id', async () => {
+      const product = await productRepository.fingById(mockProductId);
+      expect(product.id).toEqual(mockProductId);
+      expect(product.title).toEqual(mockProduct.title);
+      expect(product.image).toEqual(mockProduct.image);
+      expect(product.price).toEqual(mockProduct.price);
+      expect(product.reviewScore).toEqual(mockProduct.reviewScore);
+      expect(product.userId).toEqual(mockUserId);
+      expect(product.sku).toEqual(mockProduct.sku);
+    });
+
+    it('should fail on find by id missing id', async () => {
+      await productRepository.fingById().catch(err => {
+        expect(err.message)
+          .toEqual(
+            // eslint-disable-next-line no-useless-escape
+            'WHERE parameter \"id\" has invalid \"undefined\" value',
+          );
+      });
+    });
   });
 });
